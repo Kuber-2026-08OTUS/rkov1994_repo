@@ -24,6 +24,8 @@ spec:
         app: homework
 
     spec:
+      serviceAccountName: monitoring
+
       nodeSelector:
         homework: "true"
 
@@ -35,6 +37,24 @@ spec:
             - -c
             - |
               wget -O /init/index.html https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+
+          volumeMounts:
+            - name: homework-volume
+              mountPath: /init
+
+        - name: metrics
+          image: busybox:1.37
+          command:
+            - sh
+            - -c
+            - |
+              TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+
+              wget \
+                --no-check-certificate \
+                --header="Authorization: Bearer $TOKEN" \
+                -O /init/metrics.html \
+                https://kubernetes.default.svc/metrics
 
           volumeMounts:
             - name: homework-volume
@@ -83,3 +103,4 @@ spec:
         - name: homework-config
           configMap:
             name: homework-config
+
