@@ -50,7 +50,11 @@ configMap:
 redis:
   enabled: true
   image:
-   repository: bitnamilegacy/redis
-   tag: "8.2.1-debian-12-r0"
+    repository: bitnamilegacy/redis
+    tag: "8.2.1-debian-12-r0"
   volumePermissions:
     enabled: true
+    image:
+      registry: docker.io
+      repository: bitnamilegacy/os-shell
+      tag: "12-debian-12-r51"
