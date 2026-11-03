@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubernetes-networks
+  namespace: argocd
+spec:
+  project: otus
+
+  source:
+    repoURL: https://github.com/Kuber-2026-08OTUS/rkov1994_repo.git
+    targetRevision: kubernetes-networks
+    path: .
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: homework
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
