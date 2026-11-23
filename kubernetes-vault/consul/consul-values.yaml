@@ -1,0 +1,29 @@
+global:
+  name: consul
+  datacenter: dc1
+  enabled: true
+
+server:
+  enabled: true
+  replicas: 3
+  bootstrapExpect: 3
+  storage: 2Gi
+  storageClass: standard
+  connect: false
+
+client:
+  enabled: true
+
+ui:
+  enabled: true
+  service:
+    enabled: true
+    type: ClusterIP
+
+connectInject:
+  enabled: false
+
+server:
+  securityContext:
+    fsGroup: 1000
+    fsGroupChangePolicy: Always
