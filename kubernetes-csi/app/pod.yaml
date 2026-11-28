@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: csi-s3-writer
+  namespace: default
+spec:
+  containers:
+    - name: writer
+      image: alpine:3.22
+      command:
+        - /bin/sh
+        - -c
+        - |
+          while true; do
+            echo "$(date -Iseconds) - S3 storage test" >> /data/test.log
+            echo "Written to S3: $(date -Iseconds)"
+            sleep 10
+          done
+      volumeMounts:
+        - name: s3-storage
+          mountPath: /data
+  volumes:
+    - name: s3-storage
+      persistentVolumeClaim:
+        claimName: csi-s3-pvc

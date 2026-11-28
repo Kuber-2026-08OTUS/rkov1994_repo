@@ -1,0 +1,12 @@
+# Yandex Cloud credentials
+/secret/s3-secret.yaml
+/secretkey
+
+# Local files
+*.bak
+*.tmp
+*~
+
+# Python
+__pycache__/
+*.pyc
