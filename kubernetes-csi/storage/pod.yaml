@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: csi-s3-test
+  namespace: default
+spec:
+  containers:
+    - name: test
+      image: busybox:1.36
+      command:
+        - sh
+        - -c
+        - |
+          mkdir -p /data
+          echo "Hello from Kubernetes CSI S3" > /data/test.txt
+          date >> /data/test.txt
+          echo "File written successfully"
+          sleep 36000
+      volumeMounts:
+        - name: s3-storage
+          mountPath: /data
+  volumes:
+    - name: s3-storage
+      persistentVolumeClaim:
+        claimName: csi-s3-pvc
